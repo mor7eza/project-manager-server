@@ -9,15 +9,15 @@ const userSchema = new Schema(
     birthday: String,
     avatar: String,
     sysAdmmin: Boolean,
-    organizationRole: [
+    organizations: [
       {
-        organization: String,
+        organization: { type: Schema.Types.ObjectId, ref: "Organization" },
         role: String
       }
     ],
-    projectRole: [
+    projects: [
       {
-        project: String,
+        project: { type: Schema.Types.ObjectId, ref: "Project" },
         role: String
       }
     ]

@@ -21,8 +21,8 @@ module.exports = gql`
     locked: Boolean
     createdAt: String
     updatedAt: String
-    organizationRole: [OrganizationRole]
-    projectRole: [ProjectRole]
+    organizations: [OrganizationRole]
+    projects: [ProjectRole]
   }
 
   type Project {
