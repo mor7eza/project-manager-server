@@ -6,7 +6,7 @@ module.exports = gql`
   }
 
   type Mutation {
-    testMutation: String
+    createUser(inputUser: userInput!, sysAdmin: Boolean): AuthData!
   }
 
   type User {
@@ -67,11 +67,10 @@ module.exports = gql`
 
   type AuthData {
     token: String!
-    userId: ID!
   }
 
   input userInput {
-    name: String!
+    fullName: String!
     email: String!
     password: String!
     confirmPassword: String!
