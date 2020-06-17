@@ -10,8 +10,11 @@
   "author": "Morteza Aliyari",
   "license": "ISC",
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
     "apollo-server": "^2.14.5",
+    "bcryptjs": "^2.4.3",
     "graphql": "^15.1.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.19"
   },
   "devDependencies": {
