@@ -8,12 +8,47 @@ const { SECRET_KEY } = require("../../../config");
 const { createUserValidator } = require("../../utils/validators");
 
 module.exports = {
-  Query: {},
+  Query: {
+    login: async (_, { email, password }) => {
+      const { error } = loginValidator.validate({
+        email,
+        password
+      });
+      if (error) {
+        let joiErrors;
+        error.details.forEach((detail) => {
+          const errObj = { [detail.path[0]]: detail.message };
+          joiErrors = { ...joiErrors, ...errObj };
+        });
+        throw new UserInputError("Bad request", {
+          errors: joiErrors
+        });
+      }
+
+      const user = await User.findOne({ email });
+      if (!user)
+        throw new UserInputError("Email not found", {
+          errors: { general: "Email not found" }
+        });
+
+      const match = await bcrypt.compare(user.password, password);
+      if (!match)
+        throw new UserInputError("incorrect password", {
+          errors: { general: "incorrect password" }
+        });
+
+      const token = jwt.sign({ user_id: user.id }, SECRET_KEY, {
+        expiresIn: "1h"
+      });
+
+      return { token };
+    }
+  },
   Mutation: {
     createUser: async (_, { inputUser, sysAdmin }) => {
       if (!inputUser) throw new UserInputError("Bad request");
       const { fullName, email, password, confirmPassword } = inputUser;
-      const { error, value } = createUserValidator.validate({
+      const { error } = createUserValidator.validate({
         fullName,
         email,
         password,

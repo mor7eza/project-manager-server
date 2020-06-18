@@ -2,7 +2,7 @@ const { gql } = require("apollo-server");
 
 module.exports = gql`
   type Query {
-    test: String
+    login(email: String!, password: String!): AuthData!
   }
 
   type Mutation {
