@@ -5,7 +5,10 @@ const bcrypt = require("bcryptjs");
 const User = require("../../models/User");
 const { SECRET_KEY } = require("../../../config");
 
-const { createUserValidator } = require("../../utils/validators");
+const {
+  createUserValidator,
+  loginValidator
+} = require("../../utils/validators");
 
 module.exports = {
   Query: {
@@ -31,7 +34,7 @@ module.exports = {
           errors: { general: "Email not found" }
         });
 
-      const match = await bcrypt.compare(user.password, password);
+      const match = await bcrypt.compare(password, user.password);
       if (!match)
         throw new UserInputError("incorrect password", {
           errors: { general: "incorrect password" }
