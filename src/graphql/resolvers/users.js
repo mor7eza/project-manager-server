@@ -31,19 +31,18 @@ module.exports = {
       const user = await User.findOne({ email });
       if (!user)
         throw new UserInputError("Email not found", {
-          errors: { general: "Email not found" }
+          errors: { email: "Email not found" }
         });
 
       const match = await bcrypt.compare(password, user.password);
       if (!match)
         throw new UserInputError("incorrect password", {
-          errors: { general: "incorrect password" }
+          errors: { password: "incorrect password" }
         });
 
       const token = jwt.sign({ user_id: user.id }, SECRET_KEY, {
         expiresIn: "1h"
       });
-
       return { token };
     }
   },
