@@ -48,7 +48,8 @@ module.exports = {
         }
       );
       return { token };
-    }
+    },
+    getUser
   },
   Mutation: {
     createUser: async (_, { inputUser, sysAdmin }) => {
