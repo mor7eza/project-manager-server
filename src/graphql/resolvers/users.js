@@ -40,9 +40,13 @@ module.exports = {
           errors: { password: "incorrect password" }
         });
 
-      const token = jwt.sign({ user_id: user.id }, SECRET_KEY, {
-        expiresIn: "1h"
-      });
+      const token = jwt.sign(
+        { user_id: user.id, fullName: user.fullName },
+        SECRET_KEY,
+        {
+          expiresIn: "1h"
+        }
+      );
       return { token };
     }
   },
@@ -93,9 +97,13 @@ module.exports = {
 
       await user.save();
 
-      const token = jwt.sign({ user_id: user.id }, SECRET_KEY, {
-        expiresIn: "1h"
-      });
+      const token = jwt.sign(
+        { user_id: user.id, fullName: user.fullName },
+        SECRET_KEY,
+        {
+          expiresIn: "1h"
+        }
+      );
 
       return { token };
     }

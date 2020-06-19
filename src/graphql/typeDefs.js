@@ -67,6 +67,7 @@ module.exports = gql`
 
   type AuthData {
     token: String!
+    fullName: String!
   }
 
   input userInput {
